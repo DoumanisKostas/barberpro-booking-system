@@ -1,0 +1,1 @@
+web: gunicorn barber_project.wsgi:application

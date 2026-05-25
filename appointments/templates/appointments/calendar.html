@@ -1,0 +1,78 @@
+{% load static %}
+{% load calendar_extras %}
+
+<!DOCTYPE html>
+<html lang="el">
+<head>
+    <meta charset="UTF-8">
+    <title>Ημερολόγιο Κρατήσεων</title>
+    <link rel="stylesheet" href="{% static 'appointments/style.css' %}">
+</head>
+<body>
+
+<nav class="navbar">
+    <div class="logo">BarberPro</div>
+    <div class="nav-links">
+        <a href="/working-days">Ημέρες Εργασίας</a>
+        <a href="/">Νέα Κράτηση</a>
+        <a href="/appointments">Λίστα Κρατήσεων</a>
+        <a href="/calendar">Ημερολόγιο</a>
+        <a href="/dashboard">Dashboard</a>
+        <a href="/admin">Admin</a>
+    </div>
+</nav>
+
+<div class="calendar-container">
+
+    <h1>Ημερολόγιο Κρατήσεων</h1>
+
+    <h2>{{ month }}/{{ year }}</h2>
+
+    <div class="calendar-grid calendar-header">
+        <div>Δευ</div>
+        <div>Τρι</div>
+        <div>Τετ</div>
+        <div>Πεμ</div>
+        <div>Παρ</div>
+        <div>Σαβ</div>
+        <div>Κυρ</div>
+    </div>
+
+    {% for week in month_days %}
+        <div class="calendar-grid">
+            {% for day in week %}
+                <div class="calendar-day {% if day.month != month %}inactive-day{% endif %}">
+                    <strong>{{ day.day }}</strong>
+
+                    {% with day_appointments=appointments_by_date|get_item:day %}
+                        {% if day_appointments %}
+                            {% for appointment in day_appointments %}
+                                <div class="calendar-appointment">
+
+    <strong>{{ appointment.customer_name }}</strong>
+
+    <br>
+
+    <small>{{ appointment.barber }}</small>
+
+    <br>
+
+    {{ appointment.service }}
+
+    <br>
+
+    <strong>{{ appointment.time }}</strong>
+
+</div>
+                            {% endfor %}
+                        {% endif %}
+                    {% endwith %}
+                </div>
+            {% endfor %}
+        </div>
+    {% endfor %}
+
+</div>
+
+</body>
+</html>

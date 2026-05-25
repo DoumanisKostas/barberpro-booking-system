@@ -1,0 +1,96 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="el">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Κρατήσεις</title>
+
+    <link rel="stylesheet" href="{% static 'appointments/style.css' %}">
+</head>
+
+<body>
+
+<nav class="navbar">
+    <div class="logo">BarberPro</div>
+
+    <div class="nav-links">
+        <a href="/working-days">Ημέρες Εργασίας</a>
+        <a href="/">Νέα Κράτηση</a>
+        <a href="/calendar">Ημερολόγιο</a>
+        <a href="/dashboard">Dashboard</a>
+        <a href="/admin">Admin</a>
+    </div>
+</nav>
+
+<div class="container list-container">
+
+    <h1>Λίστα Κρατήσεων</h1>
+
+    <form method="GET" class="filter-form">
+
+    <input 
+        type="text" 
+        name="search" 
+        placeholder="Αναζήτηση με όνομα ή με Τηλ."
+        value="{{ search_query|default:'' }}"
+    >
+
+    <button type="submit">
+        Αναζήτηση
+    </button>
+
+    <a href="/appointments" class="clear-btn">
+        Καθαρισμός
+    </a>
+
+</form>
+
+<a href="/export-pdf/" class="pdf-btn">
+    Export PDF
+</a>
+
+
+    {% for appointment in appointments %}
+
+
+        <div class="appointment-card">
+
+            <h4>Αριθμός Κράτησης {{ forloop.counter }}</h4>
+
+            <h3>{{ appointment.customer_name }}</h3>
+
+            <p><strong>Τηλέφωνο:</strong> {{ appointment.phone }}</p>
+
+            <p><strong>Barber:</strong> {{ appointment.barber }}</p>
+
+            <p><strong>Υπηρεσία:</strong> {{ appointment.service }}</p>
+
+            <p><strong>Ημερομηνία:</strong> {{ appointment.date }}</p>
+
+            <p><strong>Ώρα:</strong> {{ appointment.time }}</p>
+
+            <a href="{% url 'delete_appointment' appointment.id %}"
+   class="delete-btn">
+
+    Διαγραφή
+
+</a>
+
+<a href="{% url 'edit_appointment' appointment.id %}" class="edit-btn">
+    Επεξεργασία
+</a>
+
+        </div>
+
+    {% empty %}
+
+        <p>Δεν υπάρχουν κρατήσεις.</p>
+
+    {% endfor %}
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,77 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="el">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="{% static 'appointments/style.css' %}">
+</head>
+<body>
+
+<nav class="navbar">
+    <div class="logo">BarberPro</div>
+    <div class="nav-links">
+        <a href="/">Νέα Κράτηση</a>
+        <a href="/appointments">Λίστα Κρατήσεων</a>
+        <a href="/calendar">Ημερολόγιο</a>
+        <a href="/dashboard">Dashboard</a>
+        <a href="/working-days">Ημέρες Εργασίας</a>
+        <a href="/admin">Admin</a>
+    </div>
+</nav>
+
+<div class="dashboard-container">
+
+    <h1>Dashboard</h1>
+
+    <div class="stats-grid">
+        <div class="stat-card">
+            <h3>Συνολικές Κρατήσεις</h3>
+            <p>{{ total_appointments }}</p>
+        </div>
+
+        <div class="stat-card">
+            <h3>Κρατήσεις Σήμερα</h3>
+            <p>{{ today_appointments }}</p>
+        </div>
+    </div>
+
+    <div class="chart-card">
+        <h2>Κρατήσεις ανά Barber</h2>
+
+        {% for barber in barber_stats %}
+            <div class="bar-row">
+                <span>{{ barber.barber__name|default:"Χωρίς barber" }}</span>
+                <div class="bar-bg">
+                    <div class="bar-fill"style="width:{% widthratio barber.total max_barber_total 100 %}%;">
+                        {{ barber.total }}
+                    </div>
+                </div>
+            </div>
+        {% empty %}
+            <p>Δεν υπάρχουν δεδομένα.</p>
+        {% endfor %}
+    </div>
+
+    <div class="chart-card">
+        <h2>Κρατήσεις ανά Υπηρεσία</h2>
+
+        {% for service in service_stats %}
+            <div class="bar-row">
+                <span>{{ service.service }}</span>
+                <div class="bar-bg">
+                    <div class="bar-fill"style="width:{% widthratio service.total max_service_total 100 %}%;">
+                        {{ service.total }}
+                    </div>
+                </div>
+            </div>
+        {% empty %}
+            <p>Δεν υπάρχουν δεδομένα.</p>
+        {% endfor %}
+    </div>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,41 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="el">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Επιτυχής Κράτηση</title>
+
+    <link rel="stylesheet" href="{% static 'appointments/style.css' %}">
+</head>
+
+<body>
+
+    <nav class="navbar">
+        <div class="logo">BarberPro</div>
+
+        <div class="nav-links">
+            <a href="/">Νέα Κράτηση</a>
+            <a href="/admin">Admin</a>
+            <a href="/calendar">Ημερολόγιο</a>
+        </div>
+    </nav>
+
+    <div class="container success-container">
+
+        <h1>✅ Η κράτηση ολοκληρώθηκε!</h1>
+
+        <p class="success-text">
+            Το ραντεβού σας καταχωρήθηκε επιτυχώς.
+        </p>
+
+        <a href="/" class="back-btn">
+            Επιστροφή
+        </a>
+
+    </div>
+
+</body>
+</html>

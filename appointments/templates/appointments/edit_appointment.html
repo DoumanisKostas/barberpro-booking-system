@@ -1,0 +1,36 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="el">
+<head>
+    <meta charset="UTF-8">
+    <title>Επεξεργασία Κράτησης</title>
+    <link rel="stylesheet" href="{% static 'appointments/style.css' %}">
+</head>
+<body>
+
+<nav class="navbar">
+    <div class="logo">BarberPro</div>
+    <div class="nav-links">
+        <a href="/working-days">Ημέρες Εργασίας</a>
+        <a href="/">Νέα Κράτηση</a>
+        <a href="/appointments">Λίστα Κρατήσεων</a>
+        <a href="/calendar">Ημερολόγιο</a>
+        <a href="/dashboard">Dashboard</a>
+        <a href="/admin">Admin</a>
+    </div>
+</nav>
+
+<div class="container">
+    <h1>Επεξεργασία Κράτησης</h1>
+
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+
+        <button type="submit">Αποθήκευση Αλλαγών</button>
+    </form>
+</div>
+
+</body>
+</html>
