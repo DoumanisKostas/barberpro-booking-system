@@ -28,7 +28,11 @@ SECRET_KEY = 'django-insecure-h=3wl8)62nr$+w%bw!=us=^z*$+j%$xg#x@7oolyhf6m54&57^
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'barberpro-booking-system.onrender.com',
+    '127.0.0.1',
+    'localhost',
+]
 
 
 # Application definition
